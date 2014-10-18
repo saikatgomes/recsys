@@ -1,8 +1,18 @@
 recsys
 ======
 
-Datasets at: http://recsys.acm.org/recsys14/challenge/
 
-http://www.recsyswiki.com/wiki/Movietweetings
-<br>
-https://github.com/sidooms/MovieTweetings
+<b>Code</b>
+<br><br>
+<i><b>code/get_movie_tweeting_data.sh<b/></i><br>
+run this utility to get the most latest Tweet data {movies,users,ratings}.dat<br>
+data is stored in data/tweet folder<br>
+if older data is present a backup is created in data/tweet/backup
+<br><br>
+<i><b>code/imdb_crawl.py</b></i><br>
+reads the data/tweet/movie.dat and created data/tweet/movie.json
+<br><br>
+<b>Datasets<b><br> 
+http://recsys.acm.org/recsys14/challenge/<br>
+http://www.recsyswiki.com/wiki/Movietweetings<br>
+https://github.com/sidooms/MovieTweetings<br>
