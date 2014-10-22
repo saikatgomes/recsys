@@ -76,6 +76,16 @@ def get_movie_url():
                     err_file.write(getTime()+"ID:"+id+"|MSG:No_Actors_Found")
                 msg=", ".join(stars)
                 print(getTime()+"\t\tActors: "+msg)
+                # GET OTHERS
+                recs=[]
+                dom_recs=tree.xpath("//div[starts-with(@class,'rec_item')]/@data-tconst")
+                if len(dom_recs)>0:
+                    for d in dom_recs:
+                        recs.append(d[2:])
+                else:
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Recommendations_Found")
+                msg=", ".join(recs)
+                print(getTime()+"\t\tRecs: "+msg)
                 MOVIES.append({'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating_imdb':rating})
             movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
