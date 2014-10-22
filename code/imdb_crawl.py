@@ -43,11 +43,11 @@ def get_movie_url():
                 main_url=BASE_URL+"/title/tt"+id+"/"
                 main_page=requests.get(main_url)
                 print(getTime()+"Crawling url: "+main_url)
-                print(getTime()+"\tID: "+id)
-                print(getTime()+"\tTitle: "+title)
-                print(getTime()+"\tYear: "+year)
+                print(getTime()+"\t\tID: "+id)
+                print(getTime()+"\t\tTitle: "+title)
+                print(getTime()+"\t\tYear: "+year)
                 msg=", ".join(cat)
-                print(getTime()+"\tGenre: "+msg)
+                print(getTime()+"\t\tGenre: "+msg)
                 tree = html.fromstring(main_page.text)
                 # GET RATINGS
                 rating = ""
@@ -56,7 +56,7 @@ def get_movie_url():
                     rating=dom_rating[0]
                 else:
                     err_file.write(getTime()+"ID:"+id+"|MSG:No_Ratings_Found")
-                print(getTime()+"\tRatings: "+rating)
+                print(getTime()+"\t\tRatings: "+rating)
                 # GET CAST ETC
                 director=[]
                 dom_dir=tree.xpath("//div[@itemprop='director']/a/span[@itemprop='name']/text()")
@@ -66,7 +66,16 @@ def get_movie_url():
                 else:
                     err_file.write(getTime()+"ID:"+id+"|MSG:No_Directors_Found")
                 msg=", ".join(director)
-                print(getTime()+"\tDirector: "+msg)
+                print(getTime()+"\t\tDirector: "+msg)
+                stars=[]
+                dom_stars=tree.xpath("//div[@itemprop='actors']/a/span[@itemprop='name']/text()")
+                if len(dom_stars)>0:
+                    for d in dom_stars:
+                        stars.append(d)
+                else:
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Actors_Found")
+                msg=", ".join(stars)
+                print(getTime()+"\t\tActors: "+msg)
                 MOVIES.append({'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating_imdb':rating})
             movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
