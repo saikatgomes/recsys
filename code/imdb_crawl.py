@@ -34,12 +34,19 @@ def get_movie_url():
                 cat=re.split('\|',myData[2][:len(myData[2])-1])
                 find_url=BASE_URL+"/find?ref_=nv_sr_fn&q="+title.replace(' ','+')+"&s=tt"
                 find_url2=BASE_URL+"/find?q="+title.replace(' ','+')+"&s=tt"
-                MOVIES.append({'id':id,'title':title,'year':year,'genre':cat,'url':find_url,'url2':find_url2})
-            f.close()
+                cast_url=BASE_URL+"/title/tt"+id+"/fullcredits?ref_=tt_cl_sm#cast"
+                main_url=BASE_URL+"/title/tt"+id+"/"
+                main_page=requests.get(main_url)
+                tree = html.fromstring(main_page.text)
+                rating = "none"
+                a=tree.xpath("//span[@itemprop='ratingValue']/text()")
+                if len(a)==1:
+                    rating=a[0]
+                print(getTime()+id+" -->"+rating)
+                MOVIES.append({'id':id,'title':title,'year':year,'genre':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating':rating})
             movie_json=DATA_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
                 json.dump({'movies':MOVIES},out_f,indent=2,ensure_ascii=False,sort_keys=True)
-            out_f.close()
     except (OSError, IOError) as e:
         print(getTime()+"ERROR: File "+movie_fName+" not found!")
         print(getTime()+"ERROR: Please run get_movie_tweeting_data.sh to get the Tweet Data")

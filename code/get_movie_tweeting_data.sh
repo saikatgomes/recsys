@@ -12,5 +12,5 @@ wget -N https://raw.githubusercontent.com/sidooms/MovieTweetings/master/latest/r
 
 ls -lrth
 
-cd ../code
+#cd ../code
 
