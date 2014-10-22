@@ -55,7 +55,7 @@ def get_movie_url():
                 if len(dom_rating)==1:
                     rating=dom_rating[0]
                 else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Ratings_Found")
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Ratings_Found\n")
                 print(getTime()+"\t\tRatings: "+rating)
                 # GET CAST ETC
                 director=[]
@@ -64,7 +64,7 @@ def get_movie_url():
                     for d in dom_dir:
                         director.append(d)
                 else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Directors_Found")
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Directors_Found\n")
                 msg=", ".join(director)
                 print(getTime()+"\t\tDirector: "+msg)
                 stars=[]
@@ -73,7 +73,7 @@ def get_movie_url():
                     for d in dom_stars:
                         stars.append(d)
                 else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Actors_Found")
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Actors_Found\n")
                 msg=", ".join(stars)
                 print(getTime()+"\t\tActors: "+msg)
                 # GET OTHERS
@@ -83,9 +83,16 @@ def get_movie_url():
                     for d in dom_recs:
                         recs.append(d[2:])
                 else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Recommendations_Found")
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Recommendations_Found\n")
                 msg=", ".join(recs)
                 print(getTime()+"\t\tRecs: "+msg)
+                mpaa=""
+                dom_mpaa=tree.xpath("//span[@itemprop='contentRating']/text()")
+                if len(dom_mpaa)==1:
+                    mpaa=dom_mpaa[0]
+                else:
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_MPAA_Found\n")
+                print(getTime()+"\t\tMPAA: "+mpaa)
                 MOVIES.append({'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating_imdb':rating})
             movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
