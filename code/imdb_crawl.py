@@ -4,29 +4,34 @@ from random import shuffle, randint
 
 BASE_URL="http://imdb.com"
 DATA_DIR="../data/tweet"
+OUT_DIR="../data/imdb"
 
 C_COUNT=0
+M_COUNT=0
 
 MOVIES=[]
 
 # current time for logging
 def getTime(f=1):
     ts = time.time()
-    fmt=""
-    if f==1:
-        fmt='%Y-%m-%d--%H-%M-%S-%f'
+    fmt='%Y-%m-%d--%H-%M-%S-%f'
+    dt=""
+    if f==0:
+        dt = datetime.datetime.fromtimestamp(ts).strftime(fmt)
     else:
-        fmt='%Y%m%d%H%M%S%f'
-    dt = datetime.datetime.fromtimestamp(ts).strftime(fmt)+"--["+str(C_COUNT)+"]"
+        dt = datetime.datetime.fromtimestamp(ts).strftime(fmt)+"|"+socket.gethostname()+"|"+str(C_COUNT)+"|"+str(M_COUNT)+"|"
     return dt
 
 
 def get_movie_url():
-    global MOVIES
+    global MOVIES, M_COUNT
     movie_fName=DATA_DIR+"/movies.dat"
+    err_fName=OUT_DIR+"/err_"+getTime(0)+".dat"
+    err_file=open(err_fName,'w')
     try:
         with open(movie_fName,'r') as f:
             for line in f:
+                M_COUNT=M_COUNT+1
                 myData=re.split('::',line)
                 id=myData[0]
                 title=myData[1][:len(myData[1])-7]
@@ -37,14 +42,33 @@ def get_movie_url():
                 cast_url=BASE_URL+"/title/tt"+id+"/fullcredits?ref_=tt_cl_sm#cast"
                 main_url=BASE_URL+"/title/tt"+id+"/"
                 main_page=requests.get(main_url)
+                print(getTime()+"Crawling url: "+main_url)
+                print(getTime()+"\tID: "+id)
+                print(getTime()+"\tTitle: "+title)
+                print(getTime()+"\tYear: "+year)
+                msg=", ".join(cat)
+                print(getTime()+"\tGenre: "+msg)
                 tree = html.fromstring(main_page.text)
-                rating = "none"
-                a=tree.xpath("//span[@itemprop='ratingValue']/text()")
-                if len(a)==1:
-                    rating=a[0]
-                print(getTime()+id+" -->"+rating)
-                MOVIES.append({'id':id,'title':title,'year':year,'genre':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating':rating})
-            movie_json=DATA_DIR+"/movies.json"
+                # GET RATINGS
+                rating = ""
+                dom_rating=tree.xpath("//span[@itemprop='ratingValue']/text()")
+                if len(dom_rating)==1:
+                    rating=dom_rating[0]
+                else:
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Ratings_Found")
+                print(getTime()+"\tRatings: "+rating)
+                # GET CAST ETC
+                director=[]
+                dom_dir=tree.xpath("//div[@itemprop='director']/a/span[@itemprop='name']/text()")
+                if len(dom_dir)>0:
+                    for d in dom_dir:
+                        director.append(d)
+                else:
+                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Directors_Found")
+                msg=", ".join(director)
+                print(getTime()+"\tDirector: "+msg)
+                MOVIES.append({'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating_imdb':rating})
+            movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
                 json.dump({'movies':MOVIES},out_f,indent=2,ensure_ascii=False,sort_keys=True)
     except (OSError, IOError) as e:
