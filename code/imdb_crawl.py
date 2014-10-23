@@ -120,9 +120,7 @@ def get_movie_url():
                             runtime=get_link_value(d,"time/text()")
                         elif name=="Also Known As:":
                             aka=get_simple_value(d,"text()")
-                            print "XXXXXXXXXXXXXXXXXXXXXX",aka,"XXX"
                             aka=aka.strip(" \n")
-                            print "XXXXXXXXXXXXXXXXXXXXXX",aka,"XXX"
                 print(getTime()+"\t\t\tLanguage: "+lang)
                 print(getTime()+"\t\t\tColor: "+color)
                 print(getTime()+"\t\t\tRuntime: "+runtime)
@@ -139,7 +137,7 @@ def get_movie_url():
                 if M_COUNT%10==0:
                     time.sleep(1)
                     if M_COUNT%100==0:
-                        print(getTime()+"Writing to file ..."
+                        print(getTime()+"Writing to file ...")
                         with open(movie_json,'w') as out_f:
                             time.sleep(1)
                             json.dump({'movies':MOVIES},out_f,indent=2,sort_keys=True) #.encode('utf8')
