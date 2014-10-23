@@ -1,10 +1,12 @@
-import io,requests,json,time,datetime,os.path,socket,random,re
+#!/usr/bin/python
+
+import glob,io,requests,json,time,datetime,os.path,socket,random,re
 from lxml import html
 from random import shuffle, randint
 
 BASE_URL="http://imdb.com"
 DATA_DIR="../data/tweet"
-OUT_DIR="../data/imdb"
+OUT_DIR="../data/imdb/parts"
 
 C_COUNT=0
 M_COUNT=0
@@ -59,11 +61,38 @@ def get_link_value(obj,scrapy_str):
         value=d[0]
     return value
 
-def get_movie_url():
+def process():
+    DIR="../data/imdb/parts"
+    fileList=glob.glob(DIR+'/*.dat')
+    ln=len(fileList)
+    idx=range(0,ln)
+    shuffle(idx)
+    for i in range(0,ln):
+        aFile=fileList[idx[i]]
+        f_num=aFile[aFile.find("_")+1:aFile.find(".dat")]
+        out_file=DIR+"/movies_"+f_num+".json"
+        if os.path.isfile(out_file):
+            print(getTime(1)+"Aleady processed "+aFile)
+        else:
+            lockfile=aFile+".lock"
+            #print lockfile
+            if os.path.isfile(lockfile):
+                with open(lockfile,'r') as lk:
+                    msg=lk.read()
+                print(getTime(1)+aFile+" is "+msg)
+            else:
+                with open(lockfile,"w") as lk:
+                    lk.write("Currently proccessed by "+socket.gethostname()) 
+                print(getTime(1)+"Processing "+aFile)
+                get_movie_url(aFile,out_file)
+                os.remove(lockfile)
+
+
+def get_movie_url(aFile,out_file):
     global MOVIES, M_COUNT
-    movie_fName=DATA_DIR+"/movies.dat"
-    movie_json=OUT_DIR+"/movies.json"
-    err_fName=OUT_DIR+"/err_"+getTime(0)+".dat"
+    movie_fName=aFile
+    movie_json=out_file
+    err_fName=OUT_DIR+"/err_"+getTime(0)+".err"
     err_file=open(err_fName,'w')
     try:
         with open(movie_fName,'r') as f:
@@ -136,19 +165,16 @@ def get_movie_url():
                             })
                 if M_COUNT%10==0:
                     time.sleep(1)
-                    if M_COUNT%100==0:
-                        print(getTime()+"Writing to file ...")
-                        with open(movie_json,'w') as out_f:
-                            time.sleep(1)
-                            json.dump({'movies':MOVIES},out_f,indent=2,sort_keys=True) #.encode('utf8')
-            movie_json=OUT_DIR+"/movies.json"
+            print(getTime()+"Writing to file ...")
             with open(movie_json,'w') as out_f:
-                json.dump({'movies':MOVIES},out_f,indent=2,ensure_ascii=False,sort_keys=True)
+                time.sleep(1)
+                json.dump({'movies':MOVIES},out_f,indent=2,sort_keys=True) #.encode('utf8')
     except (OSError, IOError) as e:
         print(getTime()+"ERROR: File "+movie_fName+" not found!")
         print(getTime()+"ERROR: Please run get_movie_tweeting_data.sh to get the Tweet Data")
-
+    err_file.close()
 
 
 if __name__ == "__main__":
-    get_movie_url()
+    process()
+    #get_movie_url()
