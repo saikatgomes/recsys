@@ -163,7 +163,7 @@ def get_movie_url(aFile,out_file):
                             'mpaa_imdb':mpaa,'keywords':keywords,'language_imdb':lang,'color_imdb':color, \
                             'runtime_imdb':runtime,'budget_imdb':budget,'gross_imdb':gross,'also-known-as_imdb':aka \
                             })
-                if M_COUNT%10==0:
+                if M_COUNT%3==0:
                     time.sleep(1)
             print(getTime()+"Writing to file ...")
             with open(movie_json,'w') as out_f:
