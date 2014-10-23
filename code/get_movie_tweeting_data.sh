@@ -1,6 +1,9 @@
 mkdir -p ../data
 mkdir -p ../data/tweet
 mkdir -p ../data/tweet/backup
+mkdir -p ../data/imdb
+mkdir -p ../data/imdb/parts
+mkdir -p ../data/db
 
 cd ../data/tweet
 
@@ -12,5 +15,5 @@ wget -N https://raw.githubusercontent.com/sidooms/MovieTweetings/master/latest/r
 
 ls -lrth
 
-#cd ../code
+cd ../../code
 
