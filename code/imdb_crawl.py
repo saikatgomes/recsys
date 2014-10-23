@@ -1,4 +1,4 @@
-import requests,json,time,datetime,os.path,socket,random,re
+import io,requests,json,time,datetime,os.path,socket,random,re
 from lxml import html
 from random import shuffle, randint
 
@@ -62,6 +62,7 @@ def get_link_value(obj,scrapy_str):
 def get_movie_url():
     global MOVIES, M_COUNT
     movie_fName=DATA_DIR+"/movies.dat"
+    movie_json=OUT_DIR+"/movies.json"
     err_fName=OUT_DIR+"/err_"+getTime(0)+".dat"
     err_file=open(err_fName,'w')
     try:
@@ -119,6 +120,9 @@ def get_movie_url():
                             runtime=get_link_value(d,"time/text()")
                         elif name=="Also Known As:":
                             aka=get_simple_value(d,"text()")
+                            print "XXXXXXXXXXXXXXXXXXXXXX",aka,"XXX"
+                            aka=aka.strip(" \n")
+                            print "XXXXXXXXXXXXXXXXXXXXXX",aka,"XXX"
                 print(getTime()+"\t\t\tLanguage: "+lang)
                 print(getTime()+"\t\t\tColor: "+color)
                 print(getTime()+"\t\t\tRuntime: "+runtime)
@@ -132,6 +136,13 @@ def get_movie_url():
                             'mpaa_imdb':mpaa,'keywords':keywords,'language_imdb':lang,'color_imdb':color, \
                             'runtime_imdb':runtime,'budget_imdb':budget,'gross_imdb':gross,'also-known-as_imdb':aka \
                             })
+                if M_COUNT%10==0:
+                    time.sleep(1)
+                    if M_COUNT%100==0:
+                        print(getTime()+"Writing to file ..."
+                        with open(movie_json,'w') as out_f:
+                            time.sleep(1)
+                            json.dump({'movies':MOVIES},out_f,indent=2,sort_keys=True) #.encode('utf8')
             movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
                 json.dump({'movies':MOVIES},out_f,indent=2,ensure_ascii=False,sort_keys=True)
