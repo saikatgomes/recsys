@@ -22,6 +22,27 @@ def getTime(f=1):
         dt = datetime.datetime.fromtimestamp(ts).strftime(fmt)+"|"+socket.gethostname()+"|"+str(C_COUNT)+"|"+str(M_COUNT)+"|"
     return dt
 
+def get_value(tree,scrap_str,err_file,id,att_name):
+    aValue=""
+    dom_obj=tree.xpath(scrap_str)
+    if len(dom_obj)==1:
+        aValue=dom_obj[0]
+    else:
+        err_file.write(getTime()+"ID:"+id+"|MSG:No_"+att_name+"_Found\n")
+    print(getTime()+"\t\t"+att_name+": "+aValue)
+    return aValue
+
+def get_value_list(tree,scrap_str,err_file,id,att_name):
+    aValue=[]
+    dom_obj=tree.xpath(scrap_str)
+    if len(dom_obj)>0:
+        for d in dom_obj:
+            aValue.append(d)
+    else:
+        err_file.write(getTime()+"ID:"+id+"|MSG:No_"+att_name+"_Found\n")
+    msg=", ".join(aValue)
+    print(getTime()+"\t\t"+att_name+": "+msg)
+    return aValue
 
 def get_movie_url():
     global MOVIES, M_COUNT
@@ -49,50 +70,14 @@ def get_movie_url():
                 msg=", ".join(cat)
                 print(getTime()+"\t\tGenre: "+msg)
                 tree = html.fromstring(main_page.text)
-                # GET RATINGS
-                rating = ""
-                dom_rating=tree.xpath("//span[@itemprop='ratingValue']/text()")
-                if len(dom_rating)==1:
-                    rating=dom_rating[0]
-                else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Ratings_Found\n")
-                print(getTime()+"\t\tRatings: "+rating)
-                # GET CAST ETC
-                director=[]
-                dom_dir=tree.xpath("//div[@itemprop='director']/a/span[@itemprop='name']/text()")
-                if len(dom_dir)>0:
-                    for d in dom_dir:
-                        director.append(d)
-                else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Directors_Found\n")
-                msg=", ".join(director)
-                print(getTime()+"\t\tDirector: "+msg)
-                stars=[]
-                dom_stars=tree.xpath("//div[@itemprop='actors']/a/span[@itemprop='name']/text()")
-                if len(dom_stars)>0:
-                    for d in dom_stars:
-                        stars.append(d)
-                else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Actors_Found\n")
-                msg=", ".join(stars)
-                print(getTime()+"\t\tActors: "+msg)
-                # GET OTHERS
-                recs=[]
-                dom_recs=tree.xpath("//div[starts-with(@class,'rec_item')]/@data-tconst")
-                if len(dom_recs)>0:
-                    for d in dom_recs:
-                        recs.append(d[2:])
-                else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_Recommendations_Found\n")
-                msg=", ".join(recs)
-                print(getTime()+"\t\tRecs: "+msg)
-                mpaa=""
-                dom_mpaa=tree.xpath("//span[@itemprop='contentRating']/text()")
-                if len(dom_mpaa)==1:
-                    mpaa=dom_mpaa[0]
-                else:
-                    err_file.write(getTime()+"ID:"+id+"|MSG:No_MPAA_Found\n")
-                print(getTime()+"\t\tMPAA: "+mpaa)
+                # SCRAP FOR DATA
+                rating = get_value(tree,"//span[@itemprop='ratingValue']/text()",err_file,id,"Ratings")
+                director = get_value_list(tree,"//div[@itemprop='director']/a/span[@itemprop='name']/text()",err_file,id,"Director")
+                stars=get_value_list(tree,"//div[@itemprop='actors']/a/span[@itemprop='name']/text()",err_file,id,"Actors")
+                recs=get_value_list(tree,"//div[starts-with(@class,'rec_item')]/@data-tconst",err_file,id,"Recs")
+                mpaa=get_value(tree,"//span[@itemprop='contentRating']/text()",err_file,id,"MPAA")
+                keywords=get_value_list(tree,"//div[@id='titleStoryLine']/div[@itemprop='keywords']/a/span[@itemprop='keywords']/text()",err_file,id,"Keywords")
+                # STORE!
                 MOVIES.append({'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating_imdb':rating})
             movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
