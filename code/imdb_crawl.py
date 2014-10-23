@@ -126,7 +126,12 @@ def get_movie_url():
                 print(getTime()+"\t\t\tGross: "+gross)
                 print(getTime()+"\t\t\tKnow As: "+aka)
                 # STORE!
-                MOVIES.append({'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'find_url':find_url,'find_url2':find_url2,'cast_url':cast_url,'url':main_url,'rating_imdb':rating})
+                MOVIES.append({\
+                            'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'url':main_url, \
+                            'rating_imdb':rating,'director_imdb':director,'actors_imdb':stars,'recs_imdb':recs, \
+                            'mpaa_imdb':mpaa,'keywords':keywords,'language_imdb':lang,'color_imdb':color, \
+                            'runtime_imdb':runtime,'budget_imdb':budget,'gross_imdb':gross,'also-known-as_imdb':aka \
+                            })
             movie_json=OUT_DIR+"/movies.json"
             with open(movie_json,'w') as out_f:
                 json.dump({'movies':MOVIES},out_f,indent=2,ensure_ascii=False,sort_keys=True)
