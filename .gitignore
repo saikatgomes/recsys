@@ -2,6 +2,9 @@
 \#*
 *.pyc
 *.swp
+*.lock
+*.fail
 
 data/tweet/backup
-
+code/logs/
+data/imdb/backup
