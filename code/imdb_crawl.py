@@ -84,7 +84,12 @@ def process():
                 with open(lockfile,"w") as lk:
                     lk.write("Currently proccessed by "+socket.gethostname()) 
                 print(getTime(1)+"Processing "+aFile)
-                get_movie_url(aFile,out_file)
+                try:
+                    get_movie_url(aFile,out_file)
+                except:
+                    fail_file=DIR+"/movies_"+f_num+".fail"
+                    with open(fail_file,"w") as fl:
+                        fl.write("Failed at "+socket.gethostname())
                 os.remove(lockfile)
 
 
