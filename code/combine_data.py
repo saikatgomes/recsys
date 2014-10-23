@@ -1,46 +1,29 @@
-import io,requests,json,time,datetime,os.path,socket,random,re
+import json,time,datetime,os.path,glob
 
-IN_DIR="../data/tweet"
-OUT_DIR="../data/imdb/parts"
+DATA=[]
 
-SPLITS=25
+IN_DIR="../data/imdb/parts"
+OUT_DIR="../data/imdb"
 
-def combine_files():
-    movie_fName=IN_DIR+"/movies.dat"
-    count=1;
-    try:
-        with open(movie_fName,'r') as in_f:
-            out_fName=OUT_DIR+"/movies_"+str(count)+".dat"
-            out_f=open(out_fName,'w')
-            print("INFO: Writing to "+out_fName)
-            for l in in_f:
-                out_f.write(l)
-                count=count+1
-                if count%SPLITS==0:
-                    out_f.close()
-                    out_fName=OUT_DIR+"/movies_"+str(count)+".dat"
-                    out_f=open(out_fName,'w')
-                    print("INFO: Writing to "+out_fName)
-            out_f.close()
-    except (OSError, IOError) as e:
-        print("ERROR: File "+movie_fName+" not found!")
-        print("ERROR: Please run get_movie_tweeting_data.sh to get the Tweet Data")
+L_COUNT=0
+T_COUNT=0
 
+fileList=glob.glob(IN_DIR+"/movies_*.json")
+fileList.sort()
+t=len(fileList)
+c=0
 
+for file in fileList:
+    c=c+1
+    json_data=open(file)
+    data=json.load(json_data)
+    aList=data.get('movies')
+    L_COUNT=len(aList)
+    T_COUNT=T_COUNT+L_COUNT
+    print(str(c)+"/"+str(t)+"\tProcessing "+file+" \t\t[movie count="+str(L_COUNT)+"] \t[total count="+str(T_COUNT)+"]")
+    DATA.extend(aList)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    combine_files()
+with open(OUT_DIR+'/all_movies.json',"w") as f:
+    print("Writing to file ..")
+    json.dump({'movies':DATA},f,indent=4)
+    print("Done!!!")
