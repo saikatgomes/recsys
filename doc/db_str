@@ -47,7 +47,7 @@
         }, 
 
 
-MOVIES{	PK:id, budget, color, title, mpaa, url, rating_imdb, gross, language, AKA, year, runtime }
+MOVIES{	PK:id, budget, color, title, mpaa, url, rating_imdb, gross, language, AKA, year, runtime, release_data }
 RECS {id, id, rank/order} // no PK
 Genre {PK:g_id, name} ex; <32,"horror">
 Genre_list {id, g_id} // no PK
