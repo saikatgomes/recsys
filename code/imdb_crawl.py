@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import glob,io,requests,json,time,datetime,os.path,socket,random,re
+import sys,glob,io,requests,json,time,datetime,os.path,socket,random,re
 from lxml import html
 from random import shuffle, randint
 
@@ -87,6 +87,9 @@ def process():
                 try:
                     get_movie_url(aFile,out_file)
                 except:
+                    print "ERRR"
+                    e=sys.exc_info()[0]
+                    print e
                     fail_file=DIR+"/movies_"+f_num+".fail"
                     with open(fail_file,"w") as fl:
                         fl.write("Failed at "+socket.gethostname())
@@ -137,6 +140,7 @@ def get_movie_url(aFile,out_file):
                 color=""
                 aka=""
                 budget=""
+                rel_date=""
                 details=get_value_list(tree,"//div[@id='titleDetails']/div[@class='txt-block']",err_file,id,"Detials",0)
                 for d in details:
                     d_name=d.xpath("h4/text()")
@@ -148,6 +152,8 @@ def get_movie_url(aFile,out_file):
                             budget=get_simple_value(d,"text()")
                         elif name=="Language:":
                             lang=get_link_value(d,"a/text()")
+                        elif name=="Release Date:":
+                            rel_date=get_simple_value(d,"text()")
                         elif name=="Gross:":
                             gross=get_simple_value(d,"text()")
                         elif name=="Runtime:":
@@ -156,6 +162,7 @@ def get_movie_url(aFile,out_file):
                             aka=get_simple_value(d,"text()")
                             aka=aka.strip(" \n")
                 print(getTime()+"\t\t\tLanguage: "+lang)
+                print(getTime()+"\t\t\tRelease: "+rel_date)
                 print(getTime()+"\t\t\tColor: "+color)
                 print(getTime()+"\t\t\tRuntime: "+runtime)
                 print(getTime()+"\t\t\tBudget: "+budget)
@@ -166,7 +173,8 @@ def get_movie_url(aFile,out_file):
                             'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'url':main_url, \
                             'rating_imdb':rating,'director_imdb':director,'actors_imdb':stars,'recs_imdb':recs, \
                             'mpaa_imdb':mpaa,'keywords':keywords,'language_imdb':lang,'color_imdb':color, \
-                            'runtime_imdb':runtime,'budget_imdb':budget,'gross_imdb':gross,'also-known-as_imdb':aka \
+                            'runtime_imdb':runtime,'budget_imdb':budget,'gross_imdb':gross,'also-known-as_imdb':aka, \
+                            'release_date_imdb':rel_date \
                             })
                 if M_COUNT%3==0:
                     time.sleep(1)
