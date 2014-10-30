@@ -108,49 +108,55 @@ def process():
 
 def get_rating_info(id,err_file,rating,rating_count):
     rating_info=[]
+    usr_count=""
+    rating_value=[]
+    rating_report=[]
     url="http://www.imdb.com/title/tt"+id+"/ratings?"
-    print(getTime()+"\tCrawling url: "+url)
-    main_page=requests.get(url)
-    tree = html.fromstring(main_page.text)
-    aLine=get_value_list(tree,"//div[@id='tn15content']/p/text()",err_file,id,"line1",0)
-    line1=aLine[0]
-    if (line1.startswith("No breakdown available for IMDb users.")):
-       print(getTime()+"\t\tNo Ratings info avaiable")
-       err_file.write(getTime()+"ID:"+id+"|MSG:No_RATINGS_Found\n")
-    else:
-       x=line1.find("IMDb")
-       usr_count=line1[:x-1]
-       r_count=rating_count.replace(',','')
-       d=tree.xpath("//div[@id='tn15content']/table")
-       t1=d[0]
-       t2=d[1]
-       #demo breakdown
-       d1=t1.xpath("tr")
-       d2=t2.xpath("tr")
-       rating_value=[]
-       rating_report=[]
+    
+    if len(rating)>0:
+        print(getTime()+"\tCrawling url: "+url)
+        main_page=requests.get(url)
+        tree = html.fromstring(main_page.text)
+        aLine=get_value_list(tree,"//div[@id='tn15content']/p/text()",err_file,id,"line1",0)
+        line1=aLine[0]
+        if (line1.startswith("No breakdown available for IMDb users.")):
+           print(getTime()+"\t\tNo Ratings info avaiable")
+           err_file.write(getTime()+"ID:"+id+"|MSG:No_RATINGS_Found\n")
+        else:
+           x=line1.find("IMDb")
+           usr_count=line1[:x-1]
+           r_count=rating_count.replace(',','')
+           d=tree.xpath("//div[@id='tn15content']/table")
+           t1=d[0]
+           t2=d[1]
+           #demo breakdown
+           d1=t1.xpath("tr")
+           d2=t2.xpath("tr")
 
-       for X in range (1,len(d1)):
-           n=d1[X].xpath("td/text()")
-           rating_value.append({'value':n[2],'count':n[0]});
-       Z=len(d2)-2
-       for Y in range (1,len(d2)):
-           if Y!=Z:           
-               tb=d2[Y].xpath('td')
-               if Y==(Z+1):
-                   lbl=tb[0].xpath('text()')[0]
-                   if lbl.startswith(" IMDb users"):
-                       lbl="IMDb users"
+           for X in range (1,len(d1)):
+               n=d1[X].xpath("td/text()")
+               rating_value.append({'value':n[2],'count':n[0]});
+           Z=len(d2)-2
+           for Y in range (1,len(d2)):
+               if Y!=Z:           
+                   tb=d2[Y].xpath('td')
+                   if Y==(Z+1):
+                       lbl=tb[0].xpath('text()')[0]
+                       if lbl.startswith(" IMDb users"):
+                           lbl="IMDb users"
+                       else:
+                           print(getTime()+"\t\t'IMDb users' expected but got '"+lbl+"'")
+                           err_file.write(getTime()+"ID:"+id+"|MSG:No_IMDb_Users_Found\n")
                    else:
-                       print(getTime()+"\t\t'IMDb users' expected but got '"+lbl+"'")
-                       err_file.write(getTime()+"ID:"+id+"|MSG:No_IMDb_Users_Found\n")
-               else:
-                   lbl=tb[0].xpath('a/text()')[0]
-               vote=tb[1].xpath('text()')[0]
-               ave=tb[2].xpath('text()')[0]
-               rating_report.append({'type':lbl,'votes':vote[1:],'average':ave[1:]})
-
-       rating_info.append({'rating':rating,'rating_count':usr_count, \
+                       lbl=tb[0].xpath('a/text()')[0]
+                   vote=tb[1].xpath('text()')[0]
+                   ave=tb[2].xpath('text()')[0]
+                   rating_report.append({'type':lbl,'votes':vote[1:],'average':ave[1:]})
+        print(getTime()+"\t\tAdvanced ratings extracted")
+    else:
+        print(getTime()+"\t\tNo Ratings info avaiable")
+        err_file.write(getTime()+"ID:"+id+"|MSG:No_RATINGS_Found\n")
+    rating_info.append({'rating':rating,'rating_count':usr_count, \
                         'url':url,'ratings_breakdown':rating_value,'demo_breakdown':rating_report})
     return rating_info 
 
