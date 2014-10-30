@@ -61,6 +61,13 @@ def get_link_value(obj,scrapy_str):
         value=d[0]
     return value
 
+def get_link_value_list(obj,scrapy_str):
+    value=[]
+    d=obj.xpath(scrapy_str)
+    if len(d)>0:
+        value=d
+    return value
+
 def process():
     DIR="../data/imdb/parts"
     fileList=glob.glob(DIR+'/*.dat')
@@ -141,6 +148,7 @@ def get_movie_url(aFile,out_file):
                 aka=""
                 budget=""
                 rel_date=""
+                prod_co=""
                 details=get_value_list(tree,"//div[@id='titleDetails']/div[@class='txt-block']",err_file,id,"Detials",0)
                 for d in details:
                     d_name=d.xpath("h4/text()")
@@ -161,6 +169,8 @@ def get_movie_url(aFile,out_file):
                         elif name=="Also Known As:":
                             aka=get_simple_value(d,"text()")
                             aka=aka.strip(" \n")
+                        elif name=="Production Co:":
+                            prod_co=get_link_value_list(d,"span[@itemprop='creator']/a/span[@itemprop='name']/text()")
                 print(getTime()+"\t\t\tLanguage: "+lang)
                 print(getTime()+"\t\t\tRelease: "+rel_date)
                 print(getTime()+"\t\t\tColor: "+color)
@@ -168,13 +178,15 @@ def get_movie_url(aFile,out_file):
                 print(getTime()+"\t\t\tBudget: "+budget)
                 print(getTime()+"\t\t\tGross: "+gross)
                 print(getTime()+"\t\t\tKnow As: "+aka)
+                msg = ", ".join(prod_co)
+                print(getTime()+"\t\t\tProd Co: "+msg)
                 # STORE!
                 MOVIES.append({\
                             'id':id,'title_tweet':title,'year_tweet':year,'genre_tweet':cat,'url':main_url, \
                             'rating_imdb':rating,'director_imdb':director,'actors_imdb':stars,'recs_imdb':recs, \
                             'mpaa_imdb':mpaa,'keywords':keywords,'language_imdb':lang,'color_imdb':color, \
                             'runtime_imdb':runtime,'budget_imdb':budget,'gross_imdb':gross,'also-known-as_imdb':aka, \
-                            'release_date_imdb':rel_date \
+                            'release_date_imdb':rel_date,'production_co_imdb':prod_co \
                             })
                 if M_COUNT%3==0:
                     time.sleep(1)
