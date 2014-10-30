@@ -1,0 +1,61 @@
+ "movies": [
+        {
+            "budget_imdb": "", 
+            "color_imdb": "Color", 
+            "title_tweet": "Being Elmo: A Puppeteer's Journey", 
+            "recs_imdb": [
+                "tt1422688", 
+                "tt0123366", 
+                "tt1682181", 
+                "tt3320868", 
+                "tt1670252", 
+                "tt1814836", 
+                "tt1303846", 
+                "tt1942884", 
+                "tt0905979", 
+                "tt2280268", 
+                "tt0040623", 
+                "tt0454918"
+            ], 
+            "mpaa_imdb": "Rated PG for some mild language including a brief drug reference", 
+            "url": "http://imdb.com/title/tt1787660/", 
+            "genre_tweet": [
+                "Documentary"
+            ], 
+            "rating_imdb": "7.7", 
+            "gross_imdb": "$302,652", 
+            "director_imdb": [
+                "Constance Marks"
+            ], 
+            "language_imdb": "English", 
+            "also-known-as_imdb": "Inside Elmo", 
+            "actors_imdb": [
+                "Kevin Clash", 
+                "Whoopi Goldberg", 
+                "Frank Oz"
+            ], 
+            "keywords": [
+                "puppeteer", 
+                "interview", 
+                "puppet", 
+                "fireworks", 
+                "walt disney world"
+            ], 
+            "year_tweet": "2011", 
+            "id": "1787660", 
+            "runtime_imdb": "80 min"
+        }, 
+
+
+MOVIES{	PK:id, budget, color, title, mpaa, url, rating_imdb, gross, language, AKA, year, runtime }
+RECS {id, id, rank/order} // no PK
+Genre {PK:g_id, name} ex; <32,"horror">
+Genre_list {id, g_id} // no PK
+Director {PK:d_id, name}
+Director_list {id, d_id} // no PK
+Actor {PK:a_id, name}
+Actor_list {id, a_id} // no PK
+Keywords_list = {id, keywordsStr} // noPK
+
+
+
