@@ -57,5 +57,11 @@ Actor {PK:a_id, name}
 Actor_list {id, a_id} // no PK
 Keywords_list = {id, keywordsStr} // noPK
 
+new:
+	production_co(PK:p_id,name)
+	prod_list(id,p_id) //noPk
+	rating_breakdown(id,value,count)
+	rating_demo(id,type,votes,average)
+
 
 
