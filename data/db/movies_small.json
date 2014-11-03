@@ -1,0 +1,103 @@
+{
+    "movies": [
+        {
+            "budget_imdb": "", 
+            "color_imdb": "Color", 
+            "title_tweet": "Being Elmo: A Puppeteer's Journey", 
+            "recs_imdb": [
+                "tt1422688", 
+                "tt0123366", 
+                "tt1682181", 
+                "tt3320868", 
+                "tt1670252", 
+                "tt1814836", 
+                "tt1303846", 
+                "tt1942884", 
+                "tt0905979", 
+                "tt2280268", 
+                "tt0040623", 
+                "tt0454918"
+            ], 
+            "mpaa_imdb": "Rated PG for some mild language including a brief drug reference", 
+            "url": "http://imdb.com/title/tt1787660/", 
+            "genre_tweet": [
+                "Documentary"
+            ], 
+            "rating_imdb": "7.7", 
+            "gross_imdb": "$302,652", 
+            "director_imdb": [
+                "Constance Marks"
+            ], 
+            "language_imdb": "English", 
+            "also-known-as_imdb": "Inside Elmo", 
+            "actors_imdb": [
+                "Kevin Clash", 
+                "Whoopi Goldberg", 
+                "Frank Oz"
+            ], 
+            "keywords": [
+                "puppeteer", 
+                "interview", 
+                "puppet", 
+                "fireworks", 
+                "walt disney world"
+            ], 
+            "year_tweet": "2011", 
+            "id": "1787660", 
+            "runtime_imdb": "80 min"
+        }, 
+        {
+            "budget_imdb": "", 
+            "color_imdb": "Color", 
+            "title_tweet": "If a Tree Falls: A Story of the Earth Liberation Front", 
+            "recs_imdb": [
+                "tt1748043", 
+                "tt0457496", 
+                "tt2072987", 
+                "tt2120152", 
+                "tt1152840", 
+                "tt1333634", 
+                "tt2124803", 
+                "tt3576060", 
+                "tt2091398", 
+                "tt1098379", 
+                "tt3328564", 
+                "tt3770778"
+            ], 
+            "mpaa_imdb": "Unrated", 
+            "url": "http://imdb.com/title/tt1787725/", 
+            "genre_tweet": [
+                "Documentary", 
+                "Biography", 
+                "Crime", 
+                "Drama", 
+                "History", 
+                "News", 
+                "Thriller"
+            ], 
+            "rating_imdb": "7.2", 
+            "gross_imdb": "$61,153", 
+            "director_imdb": [
+                "Marshall Curry", 
+                "Sam Cullman"
+            ], 
+            "language_imdb": "English", 
+            "also-known-as_imdb": "A Queda de uma \u00c1rvore: A Hist\u00f3ria da Frente de Liberta\u00e7\u00e3o da Terra", 
+            "actors_imdb": [
+                "Daniel McGowan", 
+                "Lisa McGowan", 
+                "Tim Lewis"
+            ], 
+            "keywords": [
+                "earth liberation front", 
+                "arson", 
+                "trial", 
+                "tree", 
+                "activist"
+            ], 
+            "year_tweet": "2011", 
+            "id": "1787725", 
+            "runtime_imdb": "85 min"
+        }
+    ]
+}

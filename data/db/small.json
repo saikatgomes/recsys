@@ -1,0 +1,257 @@
+{
+    "movies": [
+        {
+            "release_date_imdb": "15 January 1965 (Japan)", 
+            "budget_imdb": "", 
+            "color_imdb": " Black and White", 
+            "title_tweet": "Kiga kaiky\u00f4", 
+            "recs_imdb": [
+                "tt0064975", 
+                "tt0043801", 
+                "tt0054144", 
+                "tt0029314", 
+                "tt0057829", 
+                "tt0056327", 
+                "tt0082280", 
+                "tt0058349", 
+                "tt0140542", 
+                "tt0060082", 
+                "tt0229553", 
+                "tt0049642"
+            ], 
+            "rating_imdb": "8.1", 
+            "mpaa_imdb": "", 
+            "url": "http://imdb.com/title/tt0279901/", 
+            "genre_tweet": [
+                "Crime", 
+                "Drama", 
+                "Mystery"
+            ], 
+            "production_co_imdb": [
+	        "Zesp\u00f3l Filmowy \"Kadr\"",
+		"Hell's Kitchen Films",
+		"Rinat Akhmetov's Foundation \"Development of Ukraine\""
+	    ], 
+            "gross_imdb": "", 
+            "director_imdb": [
+                "Tomu Uchida"
+            ], 
+            "language_imdb": "Japanese", 
+            "also-known-as_imdb": "A Fugitive from the Past", 
+            "actors_imdb": [
+                "Rentar\u00f4 Mikuni", 
+                "Sachiko Hidari", 
+                "K\u00f4ji Mitsui"
+            ], 
+            "keywords": [
+                "typhoon", 
+                "shipwreck", 
+                "robbery", 
+                "prostitute", 
+                "poverty"
+            ], 
+            "year_tweet": "1965", 
+            "id": "0279901", 
+            "ratings_info_imdb": [
+                {
+       		    "url": "http://www.imdb.com/title/tt0839742/ratings?",
+                    "rating": "",
+                    "rating_count": "",
+                    "ratings_breakdown": [],
+                    "demo_breakdown": []
+                }
+            ], 
+            "runtime_imdb": "183 min"
+        }, 
+        {
+            "release_date_imdb": "11 March 2001 (Mexico)", 
+            "budget_imdb": "", 
+            "color_imdb": "Color", 
+            "title_tweet": "Nadie te oye: Perfume de violetas", 
+            "recs_imdb": [
+                "tt0102478", 
+                "tt0112619", 
+                "tt0456467", 
+                "tt1130981", 
+                "tt1065290", 
+                "tt0313196", 
+                "tt0164877", 
+                "tt1692190", 
+                "tt0112675", 
+                "tt2539482", 
+                "tt0476576", 
+                "tt0996363"
+            ], 
+            "rating_imdb": "7.3", 
+            "mpaa_imdb": "PG-13", 
+            "url": "http://imdb.com/title/tt0280015/", 
+            "genre_tweet": [
+                "Drama"
+            ], 
+            "production_co_imdb": [
+                "Centro de Capacitaci\u00f3n Cinematogr\u00e1fica (CCC)", 
+                "Cnca", 
+                "Filmoteca de la UNAM"
+            ], 
+            "gross_imdb": "", 
+            "director_imdb": [
+                "Marisa Sistach"
+            ], 
+            "language_imdb": "Spanish", 
+            "also-known-as_imdb": "Violet Perfume: No One Is Listening", 
+            "actors_imdb": [
+                "Ximena Ayala", 
+                "Nancy Guti\u00e9rrez", 
+                "Arcelia Ram\u00edrez"
+            ], 
+            "keywords": [
+                "bed wetting", 
+                "violence"
+            ], 
+            "year_tweet": "2001", 
+            "id": "0280015", 
+            "ratings_info_imdb": [
+                {
+                    "url": "http://www.imdb.com/title/tt0280015/ratings?", 
+                    "rating": "7.3", 
+                    "rating_count": "588", 
+                    "ratings_breakdown": [
+                        {
+                            "count": "93", 
+                            "value": "10"
+                        }, 
+                        {
+                            "count": "69", 
+                            "value": "9"
+                        }, 
+                        {
+                            "count": "143", 
+                            "value": "8"
+                        }, 
+                        {
+                            "count": "144", 
+                            "value": "7"
+                        }, 
+                        {
+                            "count": "60", 
+                            "value": "6"
+                        }, 
+                        {
+                            "count": "29", 
+                            "value": "5"
+                        }, 
+                        {
+                            "count": "24", 
+                            "value": "4"
+                        }, 
+                        {
+                            "count": "8", 
+                            "value": "3"
+                        }, 
+                        {
+                            "count": "7", 
+                            "value": "2"
+                        }, 
+                        {
+                            "count": "11", 
+                            "value": "1"
+                        }
+                    ], 
+                    "demo_breakdown": [
+                        {
+                            "average": "7.3", 
+                            "type": "Males", 
+                            "votes": "369"
+                        }, 
+                        {
+                            "average": "7.3", 
+                            "type": "Females", 
+                            "votes": "113"
+                        }, 
+                        {
+                            "average": "5.7", 
+                            "type": "Aged under 18", 
+                            "votes": "3"
+                        }, 
+                        {
+                            "average": "6.0", 
+                            "type": "Males under 18", 
+                            "votes": "1"
+                        }, 
+                        {
+                            "average": "5.5", 
+                            "type": "Females under 18", 
+                            "votes": "2"
+                        }, 
+                        {
+                            "average": "7.4", 
+                            "type": "Aged 18-29", 
+                            "votes": "172"
+                        }, 
+                        {
+                            "average": "7.3", 
+                            "type": "Males Aged 18-29", 
+                            "votes": "116"
+                        }, 
+                        {
+                            "average": "7.6", 
+                            "type": "Females Aged 18-29", 
+                            "votes": "56"
+                        }, 
+                        {
+                            "average": "7.3", 
+                            "type": "Aged 30-44", 
+                            "votes": "212"
+                        }, 
+                        {
+                            "average": "7.4", 
+                            "type": "Males Aged 30-44", 
+                            "votes": "175"
+                        }, 
+                        {
+                            "average": "6.9", 
+                            "type": "Females Aged 30-44", 
+                            "votes": "37"
+                        }, 
+                        {
+                            "average": "7.1", 
+                            "type": "Aged 45+", 
+                            "votes": "74"
+                        }, 
+                        {
+                            "average": "6.9", 
+                            "type": "Males Aged 45+", 
+                            "votes": "63"
+                        }, 
+                        {
+                            "average": "8.3", 
+                            "type": "Females Aged 45+", 
+                            "votes": "11"
+                        }, 
+                        {
+                            "average": "5.9", 
+                            "type": "Top 1000 voters", 
+                            "votes": "21"
+                        }, 
+                        {
+                            "average": "6.8", 
+                            "type": "US users", 
+                            "votes": "73"
+                        }, 
+                        {
+                            "average": "7.3", 
+                            "type": "Non-US users", 
+                            "votes": "409"
+                        }, 
+                        {
+                            "average": "7.3", 
+                            "type": "IMDb users", 
+                            "votes": "588"
+                        }
+                    ]
+                }
+            ], 
+            "runtime_imdb": "90 min"
+        } 
+    ] 
+}
