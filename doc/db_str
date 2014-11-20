@@ -63,5 +63,23 @@ new:
 	rating_breakdown(id,value,count)
 	rating_demo(id,type,votes,average)
 
+tweeter new:
+    user_id
+    item_id // imdb movie id --- NOTE make a list of id that dont exit in MOVIES.id
+    rating // users personal rating 1-10
+    scraptime //timestamp of tweet
+    favorite_count 
+    retweeted
+    followers_count
+    friends_count
+    statuses_count
+    lang
+    favourites_count
+    created_at
+    time_zone
+    listed_count`
+    created_at // tweet
+    ... add anything that catches your eyes!!!
+
 
 
