@@ -16,3 +16,6 @@ reads the data/tweet/movie.dat and created data/tweet/movie.json
 http://recsys.acm.org/recsys14/challenge/<br>
 http://www.recsyswiki.com/wiki/Movietweetings<br>
 https://github.com/sidooms/MovieTweetings<br>
+<br>
+<b>Papers ro read</b><br>
+https://drive.google.com/#folders/0B7qM_EpiOX3lSUlMSXQxQmdKV28
