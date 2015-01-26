@@ -18,6 +18,7 @@ http://www.recsyswiki.com/wiki/Movietweetings<br>
 https://github.com/sidooms/MovieTweetings<br>
 <br>
 <b>Papers ro read</b><br>
+http://irrlab.com/2012/11/08/ranklib-is-a-library-of-learning-to-rank-algorithms/
 https://drive.google.com/#folders/0B7qM_EpiOX3lSUlMSXQxQmdKV28<br>
 http://research.microsoft.com/en-us/um/people/cburges/papers/icml_ranking.pdf<br>
 http://jmlr.org/proceedings/papers/v14/chapelle11a/chapelle11a.pdf<br>
